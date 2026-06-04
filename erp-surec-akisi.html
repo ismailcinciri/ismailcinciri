@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ERP Sistemi — Süreç Akışı</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      padding: 30px 0;
+    }
+
+    .page {
+      width: 794px;
+      min-height: 1123px;
+      background: #ffffff;
+      border: 1px solid #d1d5db;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* HEADER */
+    .header {
+      background: #1E3A5F;
+      padding: 24px 32px 18px 32px;
+    }
+    .header h1 {
+      color: #ffffff;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+      margin-bottom: 5px;
+    }
+    .header p {
+      color: #93c5fd;
+      font-size: 11px;
+      font-weight: 400;
+    }
+    .gold-line {
+      height: 3px;
+      background: #F59E0B;
+    }
+
+    /* BODY */
+    .body {
+      flex: 1;
+      padding: 24px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* STEP CARD */
+    .step-row {
+      display: flex;
+      align-items: stretch;
+      gap: 12px;
+    }
+
+    .step-card {
+      flex: 1;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      border-left: 4px solid #ccc;
+      background: #f9fafb;
+      border-radius: 6px;
+      padding: 10px 14px;
+    }
+
+    .step-circle {
+      min-width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .step-content {}
+    .step-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 3px;
+    }
+    .step-desc {
+      font-size: 10px;
+      color: #4b5563;
+      line-height: 1.55;
+    }
+
+    /* SIDE BOX */
+    .side-box {
+      width: 175px;
+      flex-shrink: 0;
+      border-radius: 6px;
+      padding: 9px 11px;
+      border: 1.5px dashed #ccc;
+      font-size: 9.5px;
+      line-height: 1.6;
+      color: #374151;
+      align-self: center;
+    }
+    .side-box-title {
+      font-weight: 700;
+      font-size: 10px;
+      margin-bottom: 5px;
+      color: #1e293b;
+    }
+    .side-box ul {
+      padding-left: 14px;
+    }
+    .side-box ul li {
+      margin-bottom: 2px;
+    }
+    .side-box-empty {
+      width: 175px;
+      flex-shrink: 0;
+    }
+
+    /* ARROW */
+    .arrow {
+      text-align: left;
+      padding-left: 48px;
+      color: #9ca3af;
+      font-size: 14px;
+      line-height: 1;
+      margin: -2px 0;
+    }
+
+    /* FOOTER */
+    .footer {
+      background: #1E3A5F;
+      padding: 12px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .footer-left {
+      font-size: 8.5px;
+      color: #93c5fd;
+      font-style: italic;
+      flex: 1;
+    }
+    .footer-center {
+      font-size: 8.5px;
+      color: #ffffff;
+      text-align: center;
+      flex: 2;
+    }
+    .footer-right {
+      font-size: 8.5px;
+      color: #93c5fd;
+      text-align: right;
+      flex: 1;
+    }
+
+    /* PRINT */
+    @media print {
+      body {
+        background: #fff;
+        padding: 0;
+      }
+      .page {
+        box-shadow: none;
+        border: none;
+        width: 100%;
+        min-height: 100vh;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>ERP Sistemi — Ürün Tanımından Faturaya Tam Süreç Akışı</h1>
+    <p>Operasyonel Süreç Dokümantasyonu — v1.0</p>
+  </div>
+  <div class="gold-line"></div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <!-- STEP 1 -->
+    <div class="step-row">
+      <div class="step-card" style="border-left-color:#1D4ED8;">
+        <div class="step-circle" style="background:#1D4ED8;">1</div>
+        <div class="step-content">
+          <div class="step-title">📦 Ürün Tanımlama</div>
+          <div class="step-desc">Satılan her mobilya ürünü (Lotus 6 Kapılı Dolap, Şifonyer vb.) sisteme stok kartı olarak tanımlanır. Her ürüne özgü kod, ad ve birim bilgisi girilir.</div>
+        </div>
+      </div>
+      <div class="side-box-empty"></div>
+    </div>
+
+    <div class="arrow">▼</div>
+
+    <!-- STEP 2 -->
+    <div class="step-row">
+      <div class="step-card" style="border-left-color:#6D28D9;">
+        <div class="step-circle" style="background:#6D28D9;">2</div>
+        <div class="step-content">
+          <div class="step-title">📋 Ürün Reçetesi Tanımlama</div>
+          <div class="step-desc">Her ürün için paket bazlı reçete oluşturulur. Hangi paketin hangi parçaları içerdiği tanımlanır. Paket adetleri stok kartlarının Special1 alanına işlenir.</div>
+        </div>
+      </div>
+      <div class="side-box" style="background:#EDE9FE; border-color:#7C3AED;">
+        <div class="side-box-title">📦 Örnek Reçete</div>
+        <ul>
+          <li>Lotus 6 Kapılı Dolap</li>
+          <li>1. Paket: Alt Tabla, Üst Tabla, Ledli Askı Borusu</li>
+          <li>2. Paket: Sağ Dış Yan, Sol Dış Yan</li>
+          <li>… (9. pakete kadar)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="arrow">▼</div>
+
+    <!-- STEP 3 -->
+    <div class="step-row">
+      <div class="step-card" style="border-left-color:#0E7490;">
+        <div class="step-circle" style="background:#0E7490;">3</div>
+        <div class="step-content">
+          <div class="step-title">🏷️ Stok Kartı & Barkod Tanımlama</div>
+          <div class="step-desc">Her pakete ayrı stok kartı açılır. 20x10 standart barkodlu etiket formatı tanımlanır. Paket bilgileri etiket şablonuna yerleştirilir.</div>
+        </div>
+      </div>
+      <div class="side-box-empty"></div>
+    </div>
+
+    <div class="arrow">▼</div>
+
+    <!-- STEP 4 -->
+    <div class="step-row">
+      <div class="step-card" style="border-left-color:#2563EB;">
+        <div class="step-circle" style="background:#2563EB;">4</div>
+        <div class="step-content">
+          <div class="step-title">🛒 Sipariş Alınır</div>
+          <div class="step-desc">Müşteri siparişi Mikro ERP üzerinden oluşturulur. Sipariş teslim türü seçilir: Kendi aracı mı, nakliye firması mı, kim sevk edecek bilgisi girilir.</div>
+        </div>
+      </div>
+      <div class="side-box-empty"></div>
+    </div>
+
+    <div class="arrow">▼</div>
+
+    <!-- STEP 5 -->
+    <div class="step-row">
+      <div class="step-card" style="border-left-color:#7C3AED;">
+        <div class="step-circle" style="background:#7C3AED;">5</div>
+        <div class="step-content">
+          <div class="step-title">⚙️ Sistem Otomatik Paket Hesaplar</div>
+          <div class="step-desc">Sipariş kaydedildiği anda sistem, ürün reçetesine göre kaç paket gönderileceğini otomatik hesaplar. Herhangi bir manuel hesaplama gerekmez.</div>
+        </div>
+      </div>
+      <div class="side-box-empty"></div>
+    </div>
+
+    <div class="arrow">▼</div>
+
+    <!-- STEP 6 -->
+    <div class="step-row">
+      <div class="step-card" style="border-left-color:#EA580C;">
+        <div class="step-circle" style="background:#EA580C;">6</div>
+        <div class="step-content">
+          <div class="step-title">🏬 Merkez → Sevk Deposu Transfer Siparişi</div>
+          <div class="step-desc">Siparişe bağlı paketler için Merkez Depo'dan Sevk Deposu'na otomatik depolar arası transfer siparişi oluşturulur. Bekleyen ve sevk edilen paketler anlık ekrandan takip edilir.</div>
+        </div>
+      </div>
+      <div class="side-box-empty"></div>
+    </div>
+
+    <div class="arrow">▼</div>
+
+    <!-- STEP 7 -->
+    <div class="step-row">
+      <div class="step-card" style="border-left-color:#0D9488;">
+        <div class="step-circle" style="background:#0D9488;">7</div>
+        <div class="step-content">
+          <div class="step-title">🏭 Üretim & Paket Etiket Basımı</div>
+          <div class="step-desc">Siparişe bağlı paket etiketleri sistemden görüntülenir. Barkodlu 20x10 etiketler basılır. Etiket basımıyla birlikte stok otomatik güncellenir, ürün girişi (üretim) sisteme işlenir. İstenirse sipariş olmaksızın stoğa üretim de yapılabilir.</div>
+        </div>
+      </div>
+      <div class="side-box-empty"></div>
+    </div>
+
+    <div class="arrow">▼</div>
+
+    <!-- STEP 8 -->
+    <div class="step-row">
+      <div class="step-card" style="border-left-color:#DC2626;">
+        <div class="step-circle" style="background:#DC2626;">8</div>
+        <div class="step-content">
+          <div class="step-title">🚚 Sevkiyat Yapılır & Sevkiyat Etiketi Basılır</div>
+          <div class="step-desc">Her pakete; sipariş no, ürün adı, paket no, müşteri adı, nakliye/teslimat bilgisi ve barkod içeren sevkiyat etiketi basılır. Paketler hazırlanır ve müşteriye gönderilmek üzere sevk deposunda hazır hale getirilir.</div>
+        </div>
+      </div>
+      <div class="side-box" style="background:#FEE2E2; border-color:#DC2626;">
+        <div class="side-box-title">📋 Sevkiyat Etiketi İçeriği</div>
+        <ul>
+          <li>Sipariş No</li>
+          <li>Ürün Adı & Paket No</li>
+          <li>Barkod</li>
+          <li>Müşteri Adı</li>
+          <li>Nakliye / Teslimat Bilgisi</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="arrow">▼</div>
+
+    <!-- STEP 9 -->
+    <div class="step-row">
+      <div class="step-card" style="border-left-color:#B45309;">
+        <div class="step-circle" style="background:#B45309;">9</div>
+        <div class="step-content">
+          <div class="step-title">📄 İrsaliye Kesilir</div>
+          <div class="step-desc">Sevk deposundan müşteri adına irsaliye kesilir. Nakliye ve teslimat bilgisi irsaliyeye işlenir. Sevkiyat tamamlandı olarak sisteme kaydedilir.</div>
+        </div>
+      </div>
+      <div class="side-box-empty"></div>
+    </div>
+
+    <div class="arrow">▼</div>
+
+    <!-- STEP 10 -->
+    <div class="step-row">
+      <div class="step-card" style="border-left-color:#16A34A;">
+        <div class="step-circle" style="background:#16A34A;">10</div>
+        <div class="step-content">
+          <div class="step-title">🧾 Fatura Kesilir</div>
+          <div class="step-desc">Kesilen irsaliyeler resmi sisteme aktarım arayüzüyle aktarılır. e-Fatura / e-Arşiv olarak faturalaştırılır. Muhasebe süreci tamamlanır.</div>
+        </div>
+      </div>
+      <div class="side-box-empty"></div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-left">Gizli — Yalnızca Yetkili Kullanıcılar İçindir</div>
+    <div class="footer-center">💡 Her adım bir sonrakini otomatik tetikler — Sıfır manuel hata, tam anlık takip.</div>
+    <div class="footer-right">Sayfa 1 / 1</div>
+  </div>
+
+</div>
+</body>
+</html>
