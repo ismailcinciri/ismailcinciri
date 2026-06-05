@@ -58,6 +58,51 @@
       gap: 10px;
     }
 
+    /* SECTION (REPORTING) */
+    .section-title {
+      font-size: 12px;
+      font-weight: 800;
+      color: #1e293b;
+      margin-top: 6px;
+      margin-bottom: 2px;
+    }
+    .section-subtitle {
+      font-size: 10px;
+      color: #4b5563;
+      line-height: 1.55;
+      margin-bottom: 6px;
+    }
+
+    .report-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .report-card {
+      border: 1px solid #e5e7eb;
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+
+    .report-card h3 {
+      font-size: 10.5px;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 6px;
+    }
+
+    .report-card ul {
+      padding-left: 16px;
+      font-size: 9.8px;
+      color: #374151;
+      line-height: 1.6;
+    }
+
+    .report-card li { margin-bottom: 2px; }
+
     /* STEP CARD */
     .step-row {
       display: flex;
@@ -90,7 +135,6 @@
       margin-top: 1px;
     }
 
-    .step-content {}
     .step-title {
       font-size: 12px;
       font-weight: 700;
@@ -202,7 +246,7 @@
     <div class="step-row">
       <div class="step-card" style="border-left-color:#1D4ED8;">
         <div class="step-circle" style="background:#1D4ED8;">1</div>
-        <div class="step-content">
+        <div>
           <div class="step-title">📦 Ürün Tanımlama</div>
           <div class="step-desc">Satılan her mobilya ürünü (Lotus 6 Kapılı Dolap, Şifonyer vb.) sisteme stok kartı olarak tanımlanır. Her ürüne özgü kod, ad ve birim bilgisi girilir.</div>
         </div>
@@ -216,7 +260,7 @@
     <div class="step-row">
       <div class="step-card" style="border-left-color:#6D28D9;">
         <div class="step-circle" style="background:#6D28D9;">2</div>
-        <div class="step-content">
+        <div>
           <div class="step-title">📋 Ürün Reçetesi Tanımlama</div>
           <div class="step-desc">Her ürün için paket bazlı reçete oluşturulur. Hangi paketin hangi parçaları içerdiği tanımlanır. Paket adetleri stok kartlarının Special1 alanına işlenir.</div>
         </div>
@@ -238,7 +282,7 @@
     <div class="step-row">
       <div class="step-card" style="border-left-color:#0E7490;">
         <div class="step-circle" style="background:#0E7490;">3</div>
-        <div class="step-content">
+        <div>
           <div class="step-title">🏷️ Stok Kartı & Barkod Tanımlama</div>
           <div class="step-desc">Her pakete ayrı stok kartı açılır. 20x10 standart barkodlu etiket formatı tanımlanır. Paket bilgileri etiket şablonuna yerleştirilir.</div>
         </div>
@@ -252,7 +296,7 @@
     <div class="step-row">
       <div class="step-card" style="border-left-color:#2563EB;">
         <div class="step-circle" style="background:#2563EB;">4</div>
-        <div class="step-content">
+        <div>
           <div class="step-title">🛒 Sipariş Alınır</div>
           <div class="step-desc">Müşteri siparişi Mikro ERP üzerinden oluşturulur. Sipariş teslim türü seçilir: Kendi aracı mı, nakliye firması mı, kim sevk edecek bilgisi girilir.</div>
         </div>
@@ -266,7 +310,7 @@
     <div class="step-row">
       <div class="step-card" style="border-left-color:#7C3AED;">
         <div class="step-circle" style="background:#7C3AED;">5</div>
-        <div class="step-content">
+        <div>
           <div class="step-title">⚙️ Sistem Otomatik Paket Hesaplar</div>
           <div class="step-desc">Sipariş kaydedildiği anda sistem, ürün reçetesine göre kaç paket gönderileceğini otomatik hesaplar. Herhangi bir manuel hesaplama gerekmez.</div>
         </div>
@@ -280,7 +324,7 @@
     <div class="step-row">
       <div class="step-card" style="border-left-color:#EA580C;">
         <div class="step-circle" style="background:#EA580C;">6</div>
-        <div class="step-content">
+        <div>
           <div class="step-title">🏬 Merkez → Sevk Deposu Transfer Siparişi</div>
           <div class="step-desc">Siparişe bağlı paketler için Merkez Depo'dan Sevk Deposu'na otomatik depolar arası transfer siparişi oluşturulur. Bekleyen ve sevk edilen paketler anlık ekrandan takip edilir.</div>
         </div>
@@ -294,7 +338,7 @@
     <div class="step-row">
       <div class="step-card" style="border-left-color:#0D9488;">
         <div class="step-circle" style="background:#0D9488;">7</div>
-        <div class="step-content">
+        <div>
           <div class="step-title">🏭 Üretim & Paket Etiket Basımı</div>
           <div class="step-desc">Siparişe bağlı paket etiketleri sistemden görüntülenir. Barkodlu 20x10 etiketler basılır. Etiket basımıyla birlikte stok otomatik güncellenir, ürün girişi (üretim) sisteme işlenir. İstenirse sipariş olmaksızın stoğa üretim de yapılabilir.</div>
         </div>
@@ -308,7 +352,7 @@
     <div class="step-row">
       <div class="step-card" style="border-left-color:#DC2626;">
         <div class="step-circle" style="background:#DC2626;">8</div>
-        <div class="step-content">
+        <div>
           <div class="step-title">🚚 Sevkiyat Yapılır & Sevkiyat Etiketi Basılır</div>
           <div class="step-desc">Her pakete; sipariş no, ürün adı, paket no, müşteri adı, nakliye/teslimat bilgisi ve barkod içeren sevkiyat etiketi basılır. Paketler hazırlanır ve müşteriye gönderilmek üzere sevk deposunda hazır hale getirilir.</div>
         </div>
@@ -331,7 +375,7 @@
     <div class="step-row">
       <div class="step-card" style="border-left-color:#B45309;">
         <div class="step-circle" style="background:#B45309;">9</div>
-        <div class="step-content">
+        <div>
           <div class="step-title">📄 İrsaliye Kesilir</div>
           <div class="step-desc">Sevk deposundan müşteri adına irsaliye kesilir. Nakliye ve teslimat bilgisi irsaliyeye işlenir. Sevkiyat tamamlandı olarak sisteme kaydedilir.</div>
         </div>
@@ -345,12 +389,60 @@
     <div class="step-row">
       <div class="step-card" style="border-left-color:#16A34A;">
         <div class="step-circle" style="background:#16A34A;">10</div>
-        <div class="step-content">
+        <div>
           <div class="step-title">🧾 Fatura Kesilir</div>
           <div class="step-desc">Kesilen irsaliyeler resmi sisteme aktarım arayüzüyle aktarılır. e-Fatura / e-Arşiv olarak faturalaştırılır. Muhasebe süreci tamamlanır.</div>
         </div>
       </div>
       <div class="side-box-empty"></div>
+    </div>
+
+    <!-- REPORTING SECTION -->
+    <div style="margin-top: 6px; border-top: 1px solid #e5e7eb; padding-top: 10px;">
+      <div class="section-title">📊 Bu Akış Sonucunda Raporlanabilecek Değerler</div>
+      <div class="section-subtitle">Ürün tanımından üretim/etiketlemeye, transfer ve sevkiyata kadar tüm hareketler kayıt altına alındığı için; operasyon, depo ve finans tarafında ölçülebilir KPI ve raporlar üretilebilir.</div>
+
+      <div class="report-grid">
+        <div class="report-card">
+          <h3>🏷️ Sipariş & Paket Bazlı Takip</h3>
+          <ul>
+            <li>Siparişe bağlı toplam paket sayısı / sevk edilen / bekleyen paketler</li>
+            <li>Sipariş bazlı etiket basım durumu (basıldı / bekliyor)</li>
+            <li>Sipariş teslim türüne göre dağılım (nakliye / kendi aracı)</li>
+            <li>Sipariş bazlı sevkiyat tamamlama oranı</li>
+          </ul>
+        </div>
+
+        <div class="report-card">
+          <h3>🏬 Depo & Transfer Raporları</h3>
+          <ul>
+            <li>Merkez → Sevk deposu transfer miktarları (ürün/paket bazında)</li>
+            <li>Anlık depo stokları (Merkez / Sevk) ve kritik stok uyarıları</li>
+            <li>Transfer bekleme süresi (siparişten transfere, transferden sevke)</li>
+            <li>Depo hareket dökümü (giriş/çıkış/transfer) ve izlenebilirlik</li>
+          </ul>
+        </div>
+
+        <div class="report-card">
+          <h3>🏭 Üretim & Etiketleme KPI’ları</h3>
+          <ul>
+            <li>Üretimle oluşan ürün girişleri (gün/hafta/ay bazında)</li>
+            <li>Etiket basımıyla tüketilen paket miktarları (fire/eksik takibi için temel)</li>
+            <li>Ürün reçetesi doğruluğu: planlanan paket vs. gerçekleşen paket</li>
+            <li>Üretim/etiketleme yoğunluğu (operasyon planlama)</li>
+          </ul>
+        </div>
+
+        <div class="report-card">
+          <h3>🧾 İrsaliye & Fatura Raporları</h3>
+          <ul>
+            <li>Kesilen irsaliyeler (tarih, müşteri, depo, sipariş bazında)</li>
+            <li>İrsaliyeden faturaya dönüşüm oranı ve bekleyenler</li>
+            <li>Faturalanan satış tutarları (gün/hafta/ay, müşteri/ürün bazında)</li>
+            <li>Sevkiyat–fatura zaman farkı (finansal kapanış hız göstergesi)</li>
+          </ul>
+        </div>
+      </div>
     </div>
 
   </div>
