@@ -73,11 +73,35 @@
       margin-bottom: 6px;
     }
 
+    .exec-summary {
+      border: 1px solid #e5e7eb;
+      background: #f8fafc;
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-top: 6px;
+    }
+
+    .exec-summary h3 {
+      font-size: 10.8px;
+      font-weight: 900;
+      color: #0f172a;
+      margin-bottom: 6px;
+    }
+
+    .exec-summary ul {
+      padding-left: 16px;
+      font-size: 9.9px;
+      color: #334155;
+      line-height: 1.65;
+    }
+
+    .exec-summary li { margin-bottom: 2px; }
+
     .report-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
-      margin-top: 6px;
+      margin-top: 8px;
     }
 
     .report-card {
@@ -401,6 +425,18 @@
     <div style="margin-top: 6px; border-top: 1px solid #e5e7eb; padding-top: 10px;">
       <div class="section-title">📊 Bu Akış Sonucunda Raporlanabilecek Değerler</div>
       <div class="section-subtitle">Ürün tanımından üretim/etiketlemeye, transfer ve sevkiyata kadar tüm hareketler kayıt altına alındığı için; operasyon, depo ve finans tarafında ölçülebilir KPI ve raporlar üretilebilir.</div>
+
+      <div class="exec-summary">
+        <h3>🧑‍💼 Yönetici Özeti (İş Değeri)</h3>
+        <ul>
+          <li><strong>Uçtan uca izlenebilirlik:</strong> Sipariş → paket → depo transferi → sevkiyat → irsaliye → fatura tek zincirde takip edilir.</li>
+          <li><strong>Hızlı sevkiyat:</strong> Otomatik paket hesaplama ve otomatik transfer siparişi ile bekleme süreleri düşürülür.</li>
+          <li><strong>Hata ve kayıp azalması:</strong> Barkod/etiketleme ile yanlış paket, eksik sevk ve manuel giriş hataları minimize edilir.</li>
+          <li><strong>Stok şeffaflığı:</strong> Merkez ve sevk deposu stokları anlık görüldüğü için stok fazlası/eksikliği daha erken yönetilir.</li>
+          <li><strong>Finansal kapanış hızlanır:</strong> İrsaliyeden faturaya dönüşüm ve sevkiyat–fatura süresi izlenerek nakit akışı hızlandırılır.</li>
+          <li><strong>Standartlaşma:</strong> 20x10 etiket standardı ve reçete yapısı ile süreçler kişiye bağlı olmaktan çıkar.</li>
+        </ul>
+      </div>
 
       <div class="report-grid">
         <div class="report-card">
