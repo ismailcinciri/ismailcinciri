@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MdiOgrnlmsDers — Öğrenilmiş Ders Kayıt Ekranı</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #a8a8a8;
+      padding: 16px;
+      font-family: Tahoma, sans-serif;
+      font-size: 11px; /* ~8.25pt */
+    }
+
+    /* ── UserControl: 1100 × 814 ── */
+    .uc {
+      position: relative;
+      width: 1100px;
+      height: 814px;
+      background: #ece9d8;
+      overflow: hidden;
+      font-family: Tahoma, sans-serif;
+      font-size: 11px;
+      border: 1px solid #888;
+      box-shadow: 2px 2px 8px rgba(0,0,0,.35);
+    }
+
+    /* ── Panel (FrameClient1) ── */
+    .panel {
+      position: absolute;
+      background: #f0f0f0;
+    }
+
+    /* ── Tab Control ── */
+    .tc {
+      position: absolute;
+      background: #f0f0f0;
+    }
+
+    .tc-strip {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 22px;
+      background: #dcdcdc;
+      border-bottom: 1px solid #ababab;
+      display: flex;
+      align-items: flex-end;
+      padding: 0 3px;
+      gap: 2px;
+    }
+
+    .tc-tab {
+      height: 20px;
+      padding: 0 9px;
+      border: 1px solid #ababab;
+      border-bottom: none;
+      background: #c4c0b9;
+      cursor: pointer;
+      font: 11px Tahoma, sans-serif;
+      white-space: nowrap;
+      outline: none;
+      border-radius: 3px 3px 0 0;
+      color: #333;
+    }
+
+    .tc-tab.active {
+      background: #f0f0f0;
+      height: 21px;
+      border-color: #999;
+      color: #000;
+      position: relative;
+      z-index: 2;
+    }
+
+    .tc-tab:hover:not(.active) { background: #d8d4cc; }
+
+    .tc-page {
+      display: none;
+      position: absolute;
+      top: 22px; left: 0; right: 0; bottom: 0;
+      background: #f0f0f0;
+      overflow: visible;
+    }
+
+    .tc-page.active { display: block; }
+
+    /* ── Group Control ── */
+    .gc {
+      position: absolute;
+      border: 1px solid #ababab;
+      background: #f5f5f5;
+    }
+
+    /* Group caption rendered as a legend-style bar */
+    .gc-hdr {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 14px;
+      background: #dce0e8;
+      border-bottom: 1px solid #ababab;
+      font: bold 10px Tahoma, sans-serif;
+      color: #1a3060;
+      padding: 0 5px;
+      line-height: 14px;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    /* Group with named caption (fieldset-like): caption floats on top border */
+    .gc-named {
+      position: absolute;
+      border: 1px solid #ababab;
+      background: #f5f5f5;
+      padding-top: 14px;
+    }
+
+    .gc-named > .gc-title {
+      position: absolute;
+      top: -7px; left: 8px;
+      background: #f5f5f5;
+      padding: 0 4px;
+      font: bold 10px Tahoma, sans-serif;
+      color: #000;
+      white-space: nowrap;
+    }
+
+    /* ── TextEdit ── */
+    .te {
+      position: absolute;
+      border: 1px solid #7ba2e7;
+      font: 11px Tahoma, sans-serif;
+      padding: 1px 3px;
+      height: 20px;
+      outline: none;
+    }
+    .te-ro { background: rgb(240,240,240); color: #444; }
+    .te-nrm { background: #fff; color: #000; }
+
+    /* ── DateEdit ── */
+    .de {
+      position: absolute;
+      height: 20px;
+      display: flex;
+    }
+    .de input {
+      flex: 1; min-width: 0;
+      border: 1px solid #7ba2e7; border-right: none;
+      font: 11px Tahoma, sans-serif;
+      padding: 1px 3px; outline: none;
+    }
+    .de .arrow {
+      width: 17px; flex-shrink: 0;
+      border: 1px solid #7ba2e7;
+      background: #e8e8e8;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 8px; cursor: pointer; user-select: none;
+    }
+
+    /* ── GridLookUpEdit ── */
+    .glu {
+      position: absolute;
+      height: 20px;
+      display: flex;
+    }
+    .glu input {
+      flex: 1; min-width: 0;
+      border: 1px solid #7ba2e7; border-right: none;
+      font: 11px Tahoma, sans-serif;
+      padding: 1px 3px; outline: none;
+    }
+    .glu .arrow {
+      width: 17px; flex-shrink: 0;
+      border: 1px solid #7ba2e7;
+      background: #e8e8e8;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 8px; cursor: pointer; user-select: none;
+    }
+
+    /* ── ButtonEdit ── */
+    .be {
+      position: absolute;
+      height: 20px;
+      display: flex;
+    }
+    .be input {
+      flex: 1; min-width: 0;
+      border: 1px solid #7ba2e7; border-right: none;
+      font: 11px Tahoma, sans-serif;
+      padding: 1px 3px; outline: none;
+    }
+    .be .ebtn {
+      width: 20px; flex-shrink: 0;
+      border: 1px solid #7ba2e7;
+      background: #e8e8e8;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; cursor: pointer; user-select: none;
+    }
+
+    /* ── MemoEdit ── */
+    .me {
+      position: absolute;
+      border: 1px solid #7ba2e7;
+      font: 11px Tahoma, sans-serif;
+      padding: 2px 3px;
+      resize: none;
+      outline: none;
+    }
+    .me-nrm { background: #fff; }
+    .me-ro  { background: rgb(240,240,240); color: #444; }
+
+    /* ── Label ── */
+    .lb {
+      position: absolute;
+      font: 11px Tahoma, sans-serif;
+      color: #000;
+      line-height: 20px;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    .lb-sm   { font-size: 9px; }
+    .lb-wrap { white-space: normal; line-height: 1.35; }
+    .lb-hdr  { font-weight: bold; font-size: 10px; background: rgb(240,240,240);
+               text-align: center; line-height: 18px; }
+
+    /* ── SimpleButton ── */
+    .sb {
+      position: absolute;
+      border: 1px solid #ababab;
+      background: linear-gradient(to bottom, #f5f5f5 0%, #e0e0e0 100%);
+      font: 11px Tahoma, sans-serif;
+      cursor: pointer;
+      text-align: center;
+      padding: 0 4px;
+      outline: none;
+      color: #000;
+    }
+    .sb:hover  { background: linear-gradient(to bottom, #e8e8e8 0%, #d0d0d0 100%); }
+    .sb:active { background: #d0d0d0; }
+
+    /* ── RadioButton ── */
+    .rb {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      font: 11px Tahoma, sans-serif;
+      cursor: pointer;
+      user-select: none;
+    }
+    .rb input { margin-right: 3px; cursor: pointer; }
+
+    /* ── CheckEdit ── */
+    .ce {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      font: 11px Tahoma, sans-serif;
+    }
+
+    /* ── SplitterControl ── */
+    .sp {
+      position: absolute;
+      background: #dcdcdc;
+      border-top: 1px solid #bbb;
+      border-bottom: 1px solid #bbb;
+    }
+
+    /* ── Grid ── */
+    .grid {
+      position: absolute;
+      background: #fff;
+      border: 1px solid #ababab;
+      overflow: auto;
+    }
+    .grid table {
+      width: 100%;
+      border-collapse: collapse;
+      font: 11px Tahoma, sans-serif;
+    }
+    .grid th {
+      background: #dce9ff;
+      border: 1px solid #ababab;
+      padding: 2px 4px;
+      font-size: 10px;
+      font-weight: bold;
+      white-space: nowrap;
+      text-align: left;
+      position: sticky;
+      top: 0;
+    }
+    .grid td {
+      border: 1px solid #e8e8e8;
+      padding: 2px 4px;
+      white-space: nowrap;
+    }
+    .grid .no-data {
+      text-align: center;
+      color: #999;
+      padding: 12px;
+      white-space: normal;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════════
+     UserControl: MdiOgrnlmsDers  —  Size: 1100 × 814
+     ════════════════════════════════════════════════════════════════ -->
+<div class="uc">
+
+  <!-- FrameClient1  left=0  top=32  width=1083  height=721 -->
+  <div class="panel" style="left:0;top:32px;width:1083px;height:721px;">
+
+    <!-- ══════════════════════════════════════════════════════════════
+         Notebook1 (BirsisXtraTabControl)
+         left=0  top=1  width=1082  height=560
+         ══════════════════════════════════════════════════════════════ -->
+    <div class="tc" id="nb1" style="left:0;top:1px;width:1082px;height:560px;border:1px solid #ababab;">
+
+      <div class="tc-strip" id="nb1-strip">
+        <button class="tc-tab active" onclick="switchTab('nb1','p1',this)">[1] Öğrenilmiş Ders Bilgileri</button>
+        <button class="tc-tab" onclick="switchTab('nb1','p6',this)">Değerlendirme ve Dağılım</button>
+        <button class="tc-tab" onclick="switchTab('nb1','pk',this)">Kayıt Bilgileri</button>
+      </div>
+
+      <!-- ──────────────────────────────────────────────────────────
+           NotebookPage1  "[1] Öğrenilmiş Ders Bilgileri"
+           ────────────────────────────────────────────────────────── -->
+      <div class="tc-page active" id="nb1-p1">
+
+        <!-- grb1  left=0  top=0  width=1082  height=526 -->
+        <div class="gc" style="left:0;top:0;width:1082px;height:526px;">
+
+          <!-- ── Row 1 ── -->
+          <div class="lb" style="left:16px;top:15px;width:95px;height:20px;">Öğr. Ders Sıra No</div>
+          <input class="te te-ro" style="left:116px;top:15px;width:58px;" type="text" readonly id="edD890ID">
+
+          <div class="lb" style="left:276px;top:15px;width:59px;height:20px;">Durum</div>
+          <input class="te te-ro" style="left:342px;top:15px;width:150px;" type="text" readonly id="edD890Durum">
+
+          <!-- Kaynak (top-right) -->
+          <div class="lb lb-wrap" style="left:689px;top:10px;width:90px;height:40px;">Öğrenilmiş Ders Kaynağı</div>
+          <div class="glu" style="left:784px;top:10px;width:250px;">
+            <input type="text" style="background:#fff;" id="edD890Kaynak">
+            <div class="arrow">▼</div>
+          </div>
+          <div class="glu" style="left:784px;top:33px;width:250px;">
+            <input type="text" style="background:#fff;" id="edD890KaynakAlt">
+            <div class="arrow">▼</div>
+          </div>
+
+          <!-- ── Row 2 ── -->
+          <div class="lb" style="left:16px;top:37px;width:95px;height:20px;">Tarih</div>
+          <div class="de" style="left:116px;top:37px;width:99px;">
+            <input type="text" style="background:#fff;" id="edD890Tarih">
+            <div class="arrow">▼</div>
+          </div>
+
+          <label class="rb" style="left:275px;top:37px;width:92px;height:20px;">
+            <input type="radio" name="rdTip" id="rdKaliteSistemi" value="kalite">Kalite Sistemi
+          </label>
+          <label class="rb" style="left:386px;top:37px;width:105px;height:20px;">
+            <input type="radio" name="rdTip" id="rdUrunButunlugu" value="urun">Ürün Bütünlüğü
+          </label>
+
+          <!-- ── Row 3  Konu ── -->
+          <div class="lb" style="left:16px;top:59px;width:85px;height:20px;">Konu</div>
+          <input class="te te-nrm" style="left:116px;top:59px;width:377px;" type="text" id="edD890Konu">
+          <div class="lb lb-sm" style="left:492px;top:59px;width:137px;height:20px;">Yapı : Sonuç + Konu + Yaklaşım</div>
+
+          <!-- ── Row 4  MetaKeywords ── -->
+          <div class="lb" style="left:16px;top:82px;width:85px;height:20px;">Anahtar Kelimeler</div>
+          <input class="te te-nrm" style="left:116px;top:82px;width:376px;" type="text" id="edD890MetaKeywords">
+          <div class="lb lb-sm" style="left:492px;top:82px;width:137px;height:20px;">Örn : anahtar,kelime,arama</div>
+
+          <!-- ── Row 5  IlgiliBirim ── -->
+          <div class="lb" style="left:16px;top:106px;width:85px;height:20px;">İlgili Birim</div>
+          <div class="glu" style="left:116px;top:106px;width:150px;">
+            <input type="text" style="background:#fff;" id="edD890IlgiliBirim">
+            <div class="arrow">▼</div>
+          </div>
+
+          <!-- ── grbUygunsuzluk  left=639  top=57  width=418  height=52 ── -->
+          <div class="gc" style="left:639px;top:57px;width:418px;height:52px;">
+            <div class="lb" style="left:48px;top:3px;width:91px;height:20px;">Uygunsuzluk No</div>
+            <div class="glu" style="left:145px;top:3px;width:99px;">
+              <input type="text" style="background:#fff;" id="edD890UygszlkNo">
+              <div class="arrow">▼</div>
+            </div>
+            <button class="sb" style="left:244px;top:1px;width:28px;height:24px;">...</button>
+
+            <div class="lb" style="left:48px;top:28px;width:91px;height:20px;">Ürün Kodu</div>
+            <input class="te te-ro" style="left:145px;top:28px;width:213px;" type="text" readonly id="edD890UygszUrunKodu">
+          </div>
+
+          <!-- ════════════════════════════════════════════════════════
+               ntbAlt (BirsisXtraTabControl)
+               left=11  top=133  width=1062  height=402
+               ════════════════════════════════════════════════════════ -->
+          <div class="tc" id="nba" style="left:11px;top:133px;width:1062px;height:402px;border:1px solid #ababab;">
+
+            <div class="tc-strip" id="nba-strip">
+              <button class="tc-tab active" onclick="switchTab('nba','pm',this)">[1] Öğrenilmiş Ders Bilgileri</button>
+              <button class="tc-tab" onclick="switchTab('nba','pbr',this)">[2] Bağlı Risk Tanımları</button>
+              <button class="tc-tab" onclick="switchTab('nba','pe',this)">[3] Bağlı Evraklar &amp;&amp; Görseller</button>
+            </div>
+
+            <!-- ── pageMain  "[1] Öğrenilmiş Ders Bilgileri" ── -->
+            <div class="tc-page active" id="nba-pm">
+              <!-- grb1 inner  left=0  top=0  width=1062  height=383 -->
+              <div class="gc" style="left:0;top:0;width:1062px;height:383px;">
+
+                <!-- 1. Sorun -->
+                <div class="lb" style="left:10px;top:9px;width:199px;height:13px;line-height:13px;">1. Sorun (İlk durum) Açıklaması</div>
+                <textarea class="me me-nrm" style="left:9px;top:28px;width:929px;height:45px;" id="edD890ProblemAciklama"></textarea>
+
+                <!-- Right panel: İlgili Fotoğraflar (Sorun) -->
+                <div class="lb lb-hdr" style="left:936px;top:9px;width:117px;height:18px;">İlgili Fotoğraflar</div>
+                <div class="be" style="left:939px;top:29px;width:91px;">
+                  <input type="text" style="color:rgb(0,116,232);background:#fff;" id="edD890SorunIMG1">
+                  <div class="ebtn">...</div>
+                </div>
+                <button class="sb" style="left:1030px;top:28px;width:24px;height:23px;">▶</button>
+                <div class="be" style="left:939px;top:52px;width:91px;">
+                  <input type="text" style="color:rgb(0,116,232);background:#fff;" id="edD890SorunIMG2">
+                  <div class="ebtn">...</div>
+                </div>
+                <button class="sb" style="left:1030px;top:51px;width:24px;height:23px;">▶</button>
+
+                <!-- 2. Kök Neden -->
+                <div class="lb" style="left:10px;top:80px;width:199px;height:13px;line-height:13px;">2. Kök Neden Analizi</div>
+                <textarea class="me me-nrm" style="left:9px;top:99px;width:929px;height:45px;" id="edD890KokNdnAnlz"></textarea>
+
+                <!-- Right panel: İlgili Dosyalar (KokNdn) -->
+                <div class="lb lb-hdr" style="left:936px;top:80px;width:117px;height:18px;">İlgili Dosyalar</div>
+                <div class="be" style="left:939px;top:99px;width:91px;">
+                  <input type="text" style="color:rgb(0,116,232);background:#fff;" id="edD890KokNdnIMG1">
+                  <div class="ebtn">...</div>
+                </div>
+                <button class="sb" style="left:1030px;top:98px;width:24px;height:23px;">▶</button>
+                <div class="be" style="left:939px;top:122px;width:91px;">
+                  <input type="text" style="color:rgb(0,116,232);background:#fff;" id="edD890KokNdnIMG2">
+                  <div class="ebtn">...</div>
+                </div>
+                <button class="sb" style="left:1030px;top:121px;width:24px;height:23px;">▶</button>
+
+                <!-- 3. Alınan Ders -->
+                <div class="lb" style="left:10px;top:150px;width:199px;height:13px;line-height:13px;">3. Alınan Ders</div>
+                <textarea class="me me-nrm" style="left:9px;top:169px;width:929px;height:45px;" id="edD890AlinanDers"></textarea>
+
+                <!-- Right panel: İlgili Fotoğraflar (AlnnDrs) -->
+                <div class="lb lb-hdr" style="left:936px;top:151px;width:117px;height:18px;">İlgili Fotoğraflar</div>
+                <div class="be" style="left:939px;top:169px;width:91px;">
+                  <input type="text" style="color:rgb(0,116,232);background:#fff;" id="edD890AlnnDrsIMG1">
+                  <div class="ebtn">...</div>
+                </div>
+                <button class="sb" style="left:1030px;top:168px;width:24px;height:23px;">▶</button>
+                <div class="be" style="left:939px;top:192px;width:91px;">
+                  <input type="text" style="color:rgb(0,116,232);background:#fff;" id="edD890AlnnDrsIMG2">
+                  <div class="ebtn">...</div>
+                </div>
+                <button class="sb" style="left:1030px;top:191px;width:24px;height:23px;">▶</button>
+
+                <!-- 4. Ölçme ve Etkinlik -->
+                <div class="lb" style="left:10px;top:220px;width:199px;height:13px;line-height:13px;">4. Ölçme ve Etkinlik Takibi</div>
+                <textarea class="me me-nrm" style="left:9px;top:239px;width:1040px;height:45px;" id="edD890OlcmeEtknTakibi"></textarea>
+
+                <!-- 5. Öğrenilmiş Ders -->
+                <div class="lb" style="left:10px;top:294px;width:157px;height:13px;line-height:13px;">5. Öğrenilmiş Ders Açıklaması</div>
+                <textarea class="me me-nrm" style="left:9px;top:312px;width:1040px;height:61px;" id="edD890OgrDersAciklama"></textarea>
+
+              </div>
+            </div>
+            <!-- end pageMain -->
+
+            <!-- ── pageBagliRiskTanim  "[2] Bağlı Risk Tanımları" ── -->
+            <div class="tc-page" id="nba-pbr">
+              <button class="sb" style="left:4px;top:7px;width:131px;height:23px;" id="btnYeniEkle">Yeni Risk Tanımı</button>
+              <button class="sb" style="left:135px;top:7px;width:155px;height:23px;" id="btnEkle">Risk Tanımı Seçimi</button>
+              <button class="sb" style="left:289px;top:7px;width:91px;height:23px;" id="btnSil">Seçimi Kaldır</button>
+
+              <div class="grid" style="left:5px;top:32px;width:1048px;height:342px;" id="dlsMain">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Kaldır</th>
+                      <th>Süreç No</th>
+                      <th>Süreç Adı</th>
+                      <th>İş Sıra No</th>
+                      <th>Sr.</th>
+                      <th>İş Açıklaması</th>
+                      <th>Risk Açıklaması</th>
+                      <th>Fırsat Açıklaması</th>
+                      <th>Yeni Önlm</th>
+                      <th>Mvct. Önlm</th>
+                      <th>Mevcut Önlem Açıklaması</th>
+                      <th>Olasılık Puanı</th>
+                      <th>Şiddet Derecesi</th>
+                      <th>Risk Puanı</th>
+                      <th>Durum</th>
+                      <th>Değerlendirme Açıklaması</th>
+                      <th>Yeni Ek</th>
+                      <th>IsID</th>
+                      <th>Risk. Değ. No</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td colspan="20" class="no-data">Kayıt bulunamadı</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <!-- end pageBagliRiskTanim -->
+
+            <!-- ── pageIlgiliEvraklar  "[3] Bağlı Evraklar && Görseller" ── -->
+            <div class="tc-page" id="nba-pe">
+              <button class="sb" style="left:13px;top:13px;width:138px;height:23px;" id="btnDosyaYukle">Yükle</button>
+              <button class="sb" style="left:150px;top:13px;width:91px;height:23px;" id="btnDosyaKaldir">Kaldır</button>
+
+              <div class="grid" style="left:12px;top:41px;width:1041px;height:333px;" id="rlsDosyalar">
+                <table>
+                  <thead>
+                    <tr><th>Dosya Adı</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td class="no-data">Kayıt bulunamadı</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <!-- end pageIlgiliEvraklar -->
+
+          </div>
+          <!-- end ntbAlt -->
+
+        </div>
+        <!-- end grb1 -->
+      </div>
+      <!-- end NotebookPage1 -->
+
+      <!-- ──────────────────────────────────────────────────────────
+           NotebookPage6  "Değerlendirme ve Dağılım"
+           ────────────────────────────────────────────────────────── -->
+      <div class="tc-page" id="nb1-p6">
+
+        <button class="sb" style="left:23px;top:14px;width:139px;height:23px;" id="BT_ONAYAGONDER">Değerlendirmeye Gönder</button>
+        <div class="ce" style="left:184px;top:16px;width:16px;height:20px;">
+          <input type="checkbox" id="cbD890DgrGndrlm">
+        </div>
+
+        <div class="lb" style="left:26px;top:42px;width:149px;height:20px;">Gönderilme Zamanı</div>
+        <div class="de" style="left:184px;top:42px;width:99px;">
+          <input type="text" style="background:rgb(240,240,240);" readonly id="edD890DgrGndrlmTarih">
+          <div class="arrow">▼</div>
+        </div>
+        <input class="te te-ro" style="left:287px;top:42px;width:56px;" type="text" readonly id="edD890DgrGndrlmSaat">
+
+        <div class="lb" style="left:26px;top:67px;width:113px;height:20px;">Gönderen Birim</div>
+        <input class="te te-ro" style="left:184px;top:67px;width:159px;" type="text" readonly id="edD890DgrGndrenBrm">
+
+        <!-- Splitter 1  left=0  top=96  width=1082  height=8 -->
+        <div class="sp" style="left:0;top:96px;width:1082px;height:8px;"></div>
+
+        <div class="lb" style="left:26px;top:105px;width:113px;height:20px;">Değerlendirme Zamanı</div>
+        <div class="de" style="left:184px;top:105px;width:99px;">
+          <input type="text" style="background:rgb(240,240,240);" readonly id="edD890DgrTarih">
+          <div class="arrow">▼</div>
+        </div>
+        <input class="te te-ro" style="left:287px;top:105px;width:56px;" type="text" readonly id="edD890DgrSaat">
+
+        <div class="lb" style="left:26px;top:130px;width:113px;height:20px;">Değerlendirme Sonucu</div>
+        <input class="te te-ro" style="left:184px;top:130px;width:159px;" type="text" readonly id="edD890DgrDurum">
+
+        <div class="lb lb-wrap" style="left:26px;top:155px;width:146px;height:74px;">Değerlendirme Açıklaması</div>
+        <textarea class="me me-ro" style="left:184px;top:155px;width:515px;height:74px;" readonly id="edD890DgrAciklama"></textarea>
+
+        <!-- Groupbox11  left=349  top=103  width=248  height=49 -->
+        <div class="gc-named" style="left:349px;top:103px;width:248px;height:49px;">
+          <div class="gc-title">Yönlendirilen Öğrenilmiş Ders</div>
+          <div class="lb" style="left:14px;top:20px;width:77px;height:20px;">Kayıt No</div>
+          <input class="te te-ro" style="left:99px;top:20px;width:108px;" type="text" readonly id="edD890YnlndrKyt">
+          <button class="sb" style="left:207px;top:17px;width:28px;height:24px;" id="btnKytAc">...</button>
+        </div>
+
+        <!-- Splitter 2  left=0  top=240  width=1082  height=8 -->
+        <div class="sp" style="left:0;top:240px;width:1082px;height:8px;"></div>
+
+        <div class="lb lb-wrap" style="left:26px;top:250px;width:147px;height:74px;">Yayınlanacak Dağılım Birimleri</div>
+        <div class="grid" style="left:186px;top:250px;width:163px;height:263px;" id="dlsDagilimBirimleri">
+          <table>
+            <thead><tr><th>&nbsp;</th></tr></thead>
+            <tbody><tr><td class="no-data">—</td></tr></tbody>
+          </table>
+        </div>
+        <button class="sb" style="left:354px;top:250px;width:184px;height:79px;white-space:normal;line-height:1.5;" id="BT_YAYINLA">Yayınla</button>
+
+      </div>
+      <!-- end NotebookPage6 -->
+
+      <!-- ──────────────────────────────────────────────────────────
+           ntbKayitBilgi  "Kayıt Bilgileri"
+           ────────────────────────────────────────────────────────── -->
+      <div class="tc-page" id="nb1-pk">
+
+        <!-- grb1  left=0  top=0  width=1082  height=442 -->
+        <div class="gc" style="left:0;top:0;width:1082px;height:442px;">
+
+          <!-- İlk kayıt -->
+          <div class="lb" style="left:19px;top:18px;width:80px;height:20px;">İlk Kayıt Tarihi</div>
+          <div class="de" style="left:107px;top:18px;width:95px;">
+            <input type="text" style="background:rgb(240,240,240);" readonly id="edZDZ_TarihIlk">
+            <div class="arrow">▼</div>
+          </div>
+
+          <div class="lb" style="left:19px;top:42px;width:78px;height:20px;">İlk Kayıt Saati</div>
+          <input class="te te-ro" style="left:107px;top:42px;width:57px;" type="text" readonly id="edZDZ_SaatIlk">
+
+          <div class="lb" style="left:19px;top:66px;width:84px;height:20px;">Düzenleyen Birim</div>
+          <input class="te te-ro" style="left:107px;top:66px;width:150px;" type="text" readonly id="edBDZ">
+
+          <div class="lb" style="left:19px;top:90px;width:80px;height:20px;">Düzenleyen Prs.</div>
+          <input class="te te-ro" style="left:107px;top:90px;width:150px;" type="text" readonly id="edPDZ">
+
+          <!-- Güncellenme -->
+          <div class="lb" style="left:268px;top:18px;width:97px;height:20px;">Güncellenme Tarihi</div>
+          <div class="de" style="left:371px;top:18px;width:95px;">
+            <input type="text" style="background:rgb(240,240,240);" readonly id="edZDZ_TarihGncl">
+            <div class="arrow">▼</div>
+          </div>
+
+          <div class="lb" style="left:268px;top:42px;width:91px;height:20px;">Güncellenme Saati</div>
+          <input class="te te-ro" style="left:371px;top:42px;width:57px;" type="text" readonly id="edZDZ_SaatGncl">
+
+        </div>
+      </div>
+      <!-- end ntbKayitBilgi -->
+
+    </div>
+    <!-- end Notebook1 -->
+
+    <!-- ══════════════════════════════════════════════════════════════
+         grb2  left=0  top=563  width=1082  height=155
+         ══════════════════════════════════════════════════════════════ -->
+    <div class="gc" style="left:0;top:563px;width:1082px;height:155px;">
+
+      <div class="lb lb-sm" style="left:4px;top:1px;width:412px;height:12px;line-height:12px;">
+        Öğrenilmiş Dersler Kayıt Listesi - 1.11.05.13.403.01
+      </div>
+
+      <!-- rls1  left=0  top=16  width=1082  height=116 -->
+      <div class="grid" style="left:0;top:16px;width:1082px;height:116px;" id="rls1">
+        <table>
+          <thead>
+            <tr>
+              <th>Sıra No</th>
+              <th>Tarih</th>
+              <th>Tip</th>
+              <th>Durum</th>
+              <th>Ynlndrln Kayıt</th>
+              <th>Kaynak</th>
+              <th>Konu</th>
+              <th>Problem Açıklaması</th>
+              <th>Öğrenilmiş Ders Açıklaması</th>
+              <th>Anahtar Kelimeler</th>
+              <th>Açıklama</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td colspan="11" class="no-data">Kayıt bulunamadı</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Search bar  top=136 -->
+      <div class="lb" style="left:7px;top:136px;width:113px;height:20px;">Sıra No</div>
+      <input class="te te-nrm" style="left:127px;top:136px;width:300px;" type="text" id="edAra">
+      <button class="sb" style="left:435px;top:135px;width:79px;height:21px;" id="btnTumu">Tümü</button>
+      <button class="sb" style="left:514px;top:135px;width:145px;height:21px;" id="btnKaliteSistemi">Kalite Sistemi</button>
+      <button class="sb" style="left:659px;top:135px;width:145px;height:21px;" id="btnUrunButunlugu">Ürün Bütünlüğü</button>
+
+    </div>
+    <!-- end grb2 -->
+
+  </div>
+  <!-- end FrameClient1 -->
+
+</div>
+<!-- end UserControl -->
+
+<script>
+  /**
+   * switchTab — activates a tab page within a specific tab control.
+   * Only direct-child .tc-page elements are toggled, so nested tab
+   * controls are unaffected.
+   *
+   * @param {string} tcId    — id of the .tc container element
+   * @param {string} pageId  — id of the target tab page (without tcId prefix)
+   * @param {Element} btn    — the clicked .tc-tab button
+   */
+  function switchTab(tcId, pageId, btn) {
+    const tc = document.getElementById(tcId);
+
+    // Toggle only direct-child tab pages
+    Array.from(tc.children).forEach(function (el) {
+      if (el.classList.contains('tc-page')) {
+        el.classList.remove('active');
+      }
+    });
+
+    // Toggle strip buttons
+    const strip = document.getElementById(tcId + '-strip');
+    strip.querySelectorAll('.tc-tab').forEach(function (b) {
+      b.classList.remove('active');
+    });
+
+    // Activate the chosen page and button
+    document.getElementById(tcId + '-' + pageId).classList.add('active');
+    btn.classList.add('active');
+  }
+</script>
+
+</body>
+</html>
